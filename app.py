@@ -19,7 +19,7 @@ CREDS = Credentials.from_service_account_info(credentials_dict, scopes=SCOPE)
 client = gspread.authorize(CREDS)
 
 # Buka spreadsheet dan worksheet pertama
-SHEET_ID = "Sheet1" 
+SHEET_ID = "https://docs.google.com/spreadsheets/d/1uUMxAVvYFHXW7Q-V6_wDSboDUKdLS7um5XWj_GM-TtU/edit?gid=0#gid=0" 
 sheet = client.open_by_key(SHEET_ID).sheet1
 
 # --- FUNGSI BANTUAN ---
