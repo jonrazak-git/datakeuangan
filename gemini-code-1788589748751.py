@@ -8,12 +8,16 @@ import datetime
 
 # --- KONFIGURASI GOOGLE SHEETS ---
 # Mendefinisikan scope dan kredensial (Ganti 'credentials.json' dengan file Anda)
+
+# KODE BARU
 SCOPE = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-CREDS = Credentials.from_service_account_file('credentials.json', scopes=SCOPE)
+# Mengambil data dari secrets.toml
+credentials_dict = dict(st.secrets["gcp_service_account"])
+CREDS = Credentials.from_service_account_info(credentials_dict, scopes=SCOPE)
 client = gspread.authorize(CREDS)
 
 # Buka spreadsheet dan worksheet pertama
-SHEET_ID = "Masukkan_ID_Spreadsheet_Anda_Di_Sini" 
+SHEET_ID = "Sheet1" 
 sheet = client.open_by_key(SHEET_ID).sheet1
 
 # --- FUNGSI BANTUAN ---
