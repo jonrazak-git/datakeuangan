@@ -1,4 +1,5 @@
 import streamlit as st
+import json
 import pandas as pd
 import gspread
 from google.oauth2.service_account import Credentials
@@ -8,15 +9,11 @@ import datetime
 
 # --- KONFIGURASI GOOGLE SHEETS ---
 # Mendefinisikan scope dan kredensial (Ganti 'credentials.json' dengan file Anda)
-
-# KODE BARU
 SCOPE = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-# Mengambil data dari secrets.toml
-# KODE BARU YANG DIPERBAIKI
-credentials_dict = dict(st.secrets["gcp_service_account"])
 
-# Tambahkan baris ini untuk memaksa \n menjadi baris baru (Enter) yang sebenarnya
-credentials_dict["private_key"] = credentials_dict["private_key"].replace('\\n', '\n')
+# Mengambil teks mentah JSON dari rahasia, lalu mengubahnya jadi dictionary
+kredensial_mentah = st.secrets["google_credentials"]
+credentials_dict = json.loads(kredensial_mentah)
 
 CREDS = Credentials.from_service_account_info(credentials_dict, scopes=SCOPE)
 client = gspread.authorize(CREDS)
