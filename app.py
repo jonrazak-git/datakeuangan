@@ -12,9 +12,13 @@ import datetime
 # KODE BARU
 SCOPE = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 # Mengambil data dari secrets.toml
+# KODE BARU YANG DIPERBAIKI
 credentials_dict = dict(st.secrets["gcp_service_account"])
-CREDS = Credentials.from_service_account_info(credentials_dict, scopes=SCOPE)
-client = gspread.authorize(CREDS)
+
+# Tambahkan baris ini untuk memaksa \n menjadi baris baru (Enter) yang sebenarnya
+credentials_dict["private_key"] = credentials_dict["private_key"].replace('\\n', '\n')
+
+CREDS = Credentials.from_service_account_info(credentials_dict, scopes=SCOPE)client = gspread.authorize(CREDS)
 
 # Buka spreadsheet dan worksheet pertama
 SHEET_ID = "Sheet1" 
